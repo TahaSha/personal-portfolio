@@ -29,8 +29,8 @@ export function Timeline() {
             Two tracks, one decade.
           </h2>
           <p className="mt-5 max-w-md text-base leading-relaxed text-muted-foreground">
-            Both careers have run in parallel since 2017. Neither one is a side
-            project.
+            Teaching since 2017, shipping AI since 2019, and never one at the
+            expense of the other.
           </p>
           <ul className="mt-8 flex flex-wrap gap-x-7 gap-y-2">
             {Object.values(trackStyles).map((style) => (

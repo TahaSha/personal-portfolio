@@ -19,10 +19,43 @@ const display = Cormorant_Garamond({
   style: ["normal", "italic"],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Taha Shalaby | AI Engineer & Educator",
   description:
     "Full-Stack AI Engineer and Cambridge Mathematics & Computing Educator. I ship production AI systems and teach the next generation how they work.",
+  keywords: [
+    "AI engineer",
+    "machine learning",
+    "LLM agents",
+    "Cambridge educator",
+    "mathematics teacher",
+    "computing teacher",
+    "full-stack developer",
+    "Cairo",
+  ],
+  authors: [{ name: "Taha-Yassen Shalaby" }],
+  openGraph: {
+    title: "Taha Shalaby | AI Engineer & Educator",
+    description:
+      "I ship production AI systems and teach the next generation how they work.",
+    url: siteUrl,
+    siteName: "Taha Shalaby",
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Taha Shalaby | AI Engineer & Educator",
+    description:
+      "I ship production AI systems and teach the next generation how they work.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

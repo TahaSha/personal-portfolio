@@ -143,6 +143,7 @@
   }
   html {
     @apply font-sans scroll-smooth;
+    color-scheme: light;
   }
   ::selection {
     background: var(--ink);

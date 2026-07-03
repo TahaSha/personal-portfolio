@@ -22,7 +22,7 @@ export function Nav() {
         >
           {profile.shortName}
         </Link>
-        <nav className="hidden items-center gap-7 md:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
           {links.map((link) => (
             <a
               key={link.href}

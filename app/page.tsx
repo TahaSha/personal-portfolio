@@ -27,11 +27,33 @@ function findPortrait(): string | null {
   return null;
 }
 
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Taha-Yassen Shalaby",
+  alternateName: "Taha Shalaby",
+  email: "mailto:tahashalaby93@gmail.com",
+  jobTitle: ["Full-Stack AI Engineer", "Mathematics & Computing Educator"],
+  sameAs: [
+    "https://github.com/TahaSha",
+    "https://www.linkedin.com/in/tahashalaby",
+  ],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Cairo",
+    addressCountry: "EG",
+  },
+};
+
 export default function Home() {
   const portraitSrc = findPortrait();
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
       <Nav />
       <main>
         <Hero portraitSrc={portraitSrc} />
