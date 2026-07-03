@@ -56,9 +56,9 @@ export default function Home() {
       />
       <Nav />
       <main>
-        <Hero portraitSrc={portraitSrc} />
+        <Hero />
         <Stats />
-        <About />
+        <About portraitSrc={portraitSrc} />
         <Engineering />
         <Teaching />
         <Timeline />
