@@ -142,7 +142,7 @@ export function Hero({ portraitSrc }: { portraitSrc: string | null }) {
                       fill
                       priority
                       sizes="(min-width: 1024px) 40vw, (min-width: 640px) 384px, 100vw"
-                      className="object-cover"
+                      className="object-cover object-top"
                     />
                   ) : (
                     <div className="flex h-full flex-col items-center justify-center gap-3">
