@@ -7,7 +7,7 @@ export function Skills() {
   const teaching = skillGroups.filter((g) => g.track === "teaching");
 
   return (
-    <section id="skills" className="scroll-mt-16 border-b">
+    <section id="skills" className="scroll-mt-24 border-b">
       <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
         <Reveal>
           <h2 className="max-w-xl font-display text-4xl font-medium tracking-tight md:text-5xl">
@@ -36,7 +36,7 @@ export function Skills() {
                       {group.items.map((item) => (
                         <li
                           key={item}
-                          className="border px-2.5 py-1 font-mono text-xs text-muted-foreground"
+                          className="rounded-full border px-3 py-1 font-mono text-xs text-muted-foreground"
                         >
                           {item}
                         </li>

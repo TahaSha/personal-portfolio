@@ -192,8 +192,9 @@ export interface Project {
   name: string;
   org: string;
   year: string;
-  description: string;
-  impact?: string;
+  problem: string;
+  approach: string;
+  outcome: string;
   stack: string[];
 }
 
@@ -202,45 +203,58 @@ export const projects: Project[] = [
     name: "AI-Powered SOC Dashboard with Agent Chat",
     org: "Snappers",
     year: "2025",
-    description:
-      "Full-stack cybersecurity dashboard with a natural-language AI agent for querying security logs, automated PCI and incident reporting, and modular SIEM integration.",
-    impact: "On-prem LLM deployment for strict data residency",
+    problem:
+      "Tier-1 SOC analysts were hand-writing SIEM queries to investigate incidents, and strict data residency requirements ruled out cloud LLMs entirely.",
+    approach:
+      "A full-stack dashboard with a tool-calling agent running Qwen on-prem via Ollama, grounding answers in live log data, validating every generated query against read-only, least-privilege access, and automating PCI and incident reporting.",
+    outcome:
+      "Query construction dropped from minutes of manual syntax to a single plain-English request, fully on-prem.",
     stack: ["React", "FastAPI", "PostgreSQL", "Ollama / Qwen", "Docker"],
   },
   {
     name: "BERT Article Relevance Classifier",
     org: "laccuna",
     year: "2021",
-    description:
-      "NLP model using a BERT transformer that classified article relevance for a US media company.",
-    impact: "82% F1-score, manual analyst headcount reduced from 100 to 15",
+    problem:
+      "A US media company screened article relevance with around 100 manual analysts.",
+    approach:
+      "Fine-tuned a BERT transformer classifier with PyTorch and HuggingFace.",
+    outcome: "82% F1-score, analyst headcount cut from 100 to 15.",
     stack: ["PyTorch", "HuggingFace", "BERT"],
   },
   {
     name: "Distributed Time-Series Forecasting",
     org: "laccuna",
     year: "2022",
-    description:
-      "Distributed computing pipeline for client-specific label forecasting, deployed on GCP with interactive dashboards.",
-    impact: "Ray-parallelized across a compute cluster",
+    problem:
+      "Client-specific label forecasting had outgrown single-machine training.",
+    approach:
+      "A Ray-parallelized pipeline across a GCP compute cluster with interactive Plotly dashboards.",
+    outcome:
+      "Portfolio-wide forecasts delivered at cluster scale for a US media company.",
     stack: ["Ray", "PyTorch", "statsmodels", "GCP", "Plotly"],
   },
   {
     name: "Customer Churn Prediction",
     org: "laccuna",
     year: "2022",
-    description:
-      "Gradient boosting model with hyperparameter tuning, deployed on GCP and integrated into retention workflows for a telecom company.",
-    impact: "15% churn reduction",
+    problem:
+      "A telecom client was losing customers with no early warning signal.",
+    approach:
+      "A tuned gradient boosting model deployed on GCP and wired into retention workflows.",
+    outcome: "15% reduction in customer churn.",
     stack: ["XGBoost", "scikit-learn", "GCP"],
   },
   {
     name: "ML Workflow Engine on Kubernetes",
     org: "laccuna",
     year: "2022",
-    description:
-      "MLOps microservices workflow engine deployed on GKE with auto-scaling, ingress, secrets management, and configurable Dockerfiles.",
-    impact: "Production MLOps for the full client portfolio",
+    problem:
+      "Every client deployment meant rebuilding orchestration from scratch.",
+    approach:
+      "An MLOps microservices workflow engine on GKE with auto-scaling, ingress, secrets management, and configurable Dockerfiles.",
+    outcome:
+      "The production backbone for the full client portfolio, serving 2M+ predictions per month.",
     stack: ["FastAPI", "Celery", "RabbitMQ", "Nginx", "GKE"],
   },
 ];

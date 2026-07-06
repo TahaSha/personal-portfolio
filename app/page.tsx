@@ -56,7 +56,7 @@ export default function Home() {
       />
       <Nav />
       <main>
-        <Hero />
+        <Hero portraitSrc={portraitSrc} />
         <Stats />
         <About portraitSrc={portraitSrc} />
         <Engineering />

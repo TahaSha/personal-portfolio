@@ -88,8 +88,9 @@
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  /* Shape system: all-sharp, print-like. Radius 0 everywhere. */
-  --radius: 0rem;
+  /* Shape system: Apple-like soft rounding. Buttons and inputs 12px via
+     this token, cards and media rounded-2xl/3xl, tags and nav full-pill. */
+  --radius: 0.75rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);

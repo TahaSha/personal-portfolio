@@ -1,6 +1,7 @@
 "use client";
 
 import { Download } from "lucide-react";
+import posthog from "posthog-js";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -35,11 +36,21 @@ export function CvMenu({
       <DropdownMenuContent align="end" className="min-w-52">
         {profile.cvs.map((cv) => (
           <DropdownMenuItem key={cv.file} asChild>
-            <a href={cv.file} download>
+            <a
+              href={cv.file}
+              download
+              onClick={() =>
+                posthog.capture("cv_download_started", {
+                  cv_track: cv.track,
+                  cv_label: cv.label,
+                  source: "cv_menu",
+                })
+              }
+            >
               <span
                 aria-hidden
                 className={cn(
-                  "size-1.5",
+                  "size-1.5 rounded-full",
                   cv.track === "engineering" ? "bg-eng" : "bg-teach"
                 )}
               />
