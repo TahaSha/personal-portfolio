@@ -42,9 +42,11 @@ export function Hero({ portraitSrc }: { portraitSrc: string | null }) {
     onPointerLeave: (e: React.PointerEvent) => {
       if (e.pointerType === "mouse") setMode(null);
     },
-    onClick: (e: React.MouseEvent) => {
-      // Mouse users shift on hover; tap toggles, tapping the other switches.
-      if ((e.nativeEvent as PointerEvent).pointerType === "mouse") return;
+    onClick: () => {
+      // Hover-capable devices shift on hover instead. Gate on hover
+      // capability, not event pointerType: iOS taps masquerade as mouse
+      // clicks and would be swallowed by a pointerType check.
+      if (window.matchMedia("(hover: hover)").matches) return;
       setMode((prev) => {
         const next = prev === m ? null : m;
         if (next !== null) posthog.capture("hero_identity_mode_activated", { mode: next, trigger: "tap" });
@@ -71,7 +73,9 @@ export function Hero({ portraitSrc }: { portraitSrc: string | null }) {
       className="relative overflow-hidden bg-black text-white"
     >
       <WebGLShader mode={mode} />
-      <div className="relative mx-auto flex min-h-[100dvh] max-w-6xl items-center justify-center px-5 py-16 md:px-8">
+      {/* svh, not dvh: dvh tracks the collapsing mobile URL bar, resizing the
+          shader canvas on every scroll frame and making the beam jitter. */}
+      <div className="relative mx-auto flex min-h-[100svh] max-w-6xl items-center justify-center px-5 py-16 md:px-8">
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}

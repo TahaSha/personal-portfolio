@@ -111,9 +111,16 @@ export function WebGLShader({
 
     const renderFrame = () => renderer.render(scene, camera);
 
+    let lastWidth = 0;
+    let lastHeight = 0;
     const resize = () => {
       const width = canvas.clientWidth || window.innerWidth;
       const height = canvas.clientHeight || window.innerHeight;
+      // Skip no-op fires: rescaling the GL buffer mid-scroll makes the
+      // beam jump (mobile URL-bar movement used to trigger this via dvh).
+      if (width === lastWidth && height === lastHeight) return;
+      lastWidth = width;
+      lastHeight = height;
       renderer.setSize(width, height, false);
       uniforms.resolution.value = [width * pixelRatio, height * pixelRatio];
       if (reduceMotion) renderFrame();
