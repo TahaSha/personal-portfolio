@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
+import type { Track } from "@/lib/data/resume";
 import { cn } from "@/lib/utils";
 
 const vertexShader = `
@@ -18,6 +19,7 @@ const fragmentShader = `
   uniform float xScale;
   uniform float yScale;
   uniform float distortion;
+  uniform float uMode; // -1 engineering .. 0 neutral .. +1 teaching
 
   void main() {
     vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);
@@ -32,12 +34,35 @@ const fragmentShader = `
     float g = 0.05 / abs(p.y + sin((gx + time) * xScale) * yScale);
     float b = 0.05 / abs(p.y + sin((bx + time) * xScale) * yScale);
 
-    gl_FragColor = vec4(r, g, b, 1.0);
+    vec3 spectrum = vec3(r, g, b);
+    // Keep in sync with --eng / --teach in app/globals.css (oklch -> sRGB approx).
+    // RawShaderMaterial writes gl_FragColor raw, so these are sRGB values.
+    const vec3 ENG = vec3(0.08, 0.31, 0.76);
+    const vec3 TEACH = vec3(0.70, 0.29, 0.11);
+    vec3 tint = uMode < 0.0 ? ENG : TEACH;
+    // Reuse the three offset wave intensities as brightness fringes of one hue
+    // so the chromatic-aberration structure survives the tint.
+    vec3 tinted = tint * (r * 1.25 + g + b * 0.75);
+    gl_FragColor = vec4(mix(spectrum, tinted, abs(uMode)), 1.0);
   }
 `;
 
-export function WebGLShader({ className }: { className?: string }) {
+export function WebGLShader({
+  className,
+  mode = null,
+}: {
+  className?: string;
+  mode?: Track | null;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const targetModeRef = useRef(0);
+  const applyModeRef = useRef<(() => void) | null>(null);
+
+  useEffect(() => {
+    targetModeRef.current =
+      mode === "engineering" ? -1 : mode === "teaching" ? 1 : 0;
+    applyModeRef.current?.();
+  }, [mode]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -61,6 +86,7 @@ export function WebGLShader({ className }: { className?: string }) {
       xScale: { value: 1.0 },
       yScale: { value: 0.5 },
       distortion: { value: 0.05 },
+      uMode: { value: targetModeRef.current },
     };
 
     const position = [
@@ -100,9 +126,16 @@ export function WebGLShader({ className }: { className?: string }) {
 
     let animationId: number | null = null;
     if (reduceMotion) {
+      // Static frame: identity shifts apply as a discrete color change.
+      applyModeRef.current = () => {
+        uniforms.uMode.value = targetModeRef.current;
+        renderFrame();
+      };
       renderFrame();
     } else {
       const animate = () => {
+        uniforms.uMode.value +=
+          (targetModeRef.current - uniforms.uMode.value) * 0.05;
         uniforms.time.value += 0.01;
         renderFrame();
         animationId = requestAnimationFrame(animate);
@@ -111,6 +144,7 @@ export function WebGLShader({ className }: { className?: string }) {
     }
 
     return () => {
+      applyModeRef.current = null;
       if (animationId) cancelAnimationFrame(animationId);
       observer.disconnect();
       scene.remove(mesh);

@@ -4,7 +4,7 @@ import { profile } from "@/lib/data/resume";
 
 export function About({ portraitSrc }: { portraitSrc: string | null }) {
   return (
-    <section id="about" className="scroll-mt-16 border-b">
+    <section id="about" className="scroll-mt-24 border-b">
       <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-7">
@@ -39,8 +39,8 @@ export function About({ portraitSrc }: { portraitSrc: string | null }) {
           <div className="lg:col-span-5">
             <Reveal delay={0.15}>
               <figure className="mx-auto max-w-sm lg:sticky lg:top-24 lg:max-w-none">
-                <div className="border bg-card p-2.5">
-                  <div className="relative aspect-4/5 overflow-hidden bg-secondary">
+                <div className="rounded-2xl border bg-card p-2.5">
+                  <div className="relative aspect-4/5 overflow-hidden rounded-xl bg-secondary">
                     {portraitSrc ? (
                       <Image
                         src={portraitSrc}

@@ -4,14 +4,14 @@ import { certifications, teachingRoles } from "@/lib/data/resume";
 
 export function Teaching() {
   return (
-    <section id="teaching" className="scroll-mt-16 border-b">
+    <section id="teaching" className="scroll-mt-24 border-b">
       <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="order-2 lg:order-1 lg:col-span-5">
             <Reveal>
               <figure>
-                <div className="border bg-card p-2.5">
-                  <div className="relative aspect-4/5 overflow-hidden bg-secondary">
+                <div className="rounded-2xl border bg-card p-2.5">
+                  <div className="relative aspect-4/5 overflow-hidden rounded-xl bg-secondary">
                     <Image
                       src="https://picsum.photos/seed/blackboard/900/1125"
                       alt="Rulers and pencils on a school supply shelf"

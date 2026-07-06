@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 export function Engineering() {
   return (
-    <section id="engineering" className="scroll-mt-16 border-b">
+    <section id="engineering" className="scroll-mt-24 border-b">
       <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
         <Reveal>
           <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-eng">
@@ -29,7 +29,7 @@ export function Engineering() {
                     {role.start} to {role.end}
                   </p>
                   {role.current && (
-                    <p className="mt-2 inline-block border border-eng/30 bg-eng/5 px-2 py-0.5 font-mono text-[11px] text-eng">
+                    <p className="mt-2 inline-block rounded-full border border-eng/30 bg-eng/5 px-2.5 py-0.5 font-mono text-[11px] text-eng">
                       Current
                     </p>
                   )}
@@ -81,7 +81,7 @@ export function Engineering() {
               >
                 <article
                   className={cn(
-                    "flex h-full flex-col border p-6 md:p-7",
+                    "flex h-full flex-col rounded-2xl border p-6 md:p-7",
                     featured && "border-ink bg-ink text-paper",
                     i === 1 && "bg-eng/5",
                     i === 3 && "bg-secondary"
@@ -100,22 +100,54 @@ export function Engineering() {
                   </h4>
                   <p
                     className={cn(
-                      "mt-3 text-sm leading-relaxed",
+                      "mt-4 font-mono text-[10px] uppercase tracking-[0.18em]",
+                      featured ? "text-paper/50" : "text-muted-foreground"
+                    )}
+                  >
+                    Problem
+                  </p>
+                  <p
+                    className={cn(
+                      "mt-1.5 text-sm leading-relaxed",
                       featured ? "text-paper/75" : "text-muted-foreground"
                     )}
                   >
-                    {project.description}
+                    {project.problem}
                   </p>
-                  {project.impact && (
-                    <p
+                  <p
+                    className={cn(
+                      "mt-4 font-mono text-[10px] uppercase tracking-[0.18em]",
+                      featured ? "text-paper/50" : "text-muted-foreground"
+                    )}
+                  >
+                    Approach
+                  </p>
+                  <p
+                    className={cn(
+                      "mt-1.5 text-sm leading-relaxed",
+                      featured ? "text-paper/75" : "text-muted-foreground"
+                    )}
+                  >
+                    {project.approach}
+                  </p>
+                  <p
+                    className={cn(
+                      "mt-4 border-l-2 pl-3",
+                      featured ? "border-paper/40" : "border-eng/50"
+                    )}
+                  >
+                    <span
                       className={cn(
-                        "mt-4 border-l-2 pl-3 text-sm font-medium",
-                        featured ? "border-paper/40" : "border-eng/50"
+                        "block font-mono text-[10px] uppercase tracking-[0.18em]",
+                        featured ? "text-paper/50" : "text-muted-foreground"
                       )}
                     >
-                      {project.impact}
-                    </p>
-                  )}
+                      Outcome
+                    </span>
+                    <span className="mt-1 block text-sm font-medium leading-relaxed">
+                      {project.outcome}
+                    </span>
+                  </p>
                   <p
                     className={cn(
                       "mt-auto pt-5 font-mono text-[11px]",

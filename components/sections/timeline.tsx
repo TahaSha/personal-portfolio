@@ -22,7 +22,7 @@ export function Timeline() {
   const scaleY = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
   return (
-    <section id="timeline" className="scroll-mt-16 border-b">
+    <section id="timeline" className="scroll-mt-24 border-b">
       <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
         <Reveal>
           <h2 className="max-w-xl font-display text-4xl font-medium tracking-tight md:text-5xl">
@@ -35,7 +35,10 @@ export function Timeline() {
           <ul className="mt-8 flex flex-wrap gap-x-7 gap-y-2">
             {Object.values(trackStyles).map((style) => (
               <li key={style.label} className="flex items-center gap-2.5">
-                <span aria-hidden className={cn("size-2.5", style.node)} />
+                <span
+                  aria-hidden
+                  className={cn("size-2.5 rounded-full", style.node)}
+                />
                 <span className="text-sm text-muted-foreground">
                   {style.label}
                 </span>
@@ -66,7 +69,7 @@ export function Timeline() {
                   <span
                     aria-hidden
                     className={cn(
-                      "absolute top-1.5 left-[5px] size-2.5 -translate-x-1/2 outline-4 outline-background md:left-1/2",
+                      "absolute top-1.5 left-[5px] size-2.5 -translate-x-1/2 rounded-full outline-4 outline-background md:left-1/2",
                       style.node
                     )}
                   />

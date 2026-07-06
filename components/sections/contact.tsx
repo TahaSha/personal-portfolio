@@ -2,6 +2,7 @@
 
 import { useActionState, useEffect } from "react";
 import { ArrowUpRight, Download } from "lucide-react";
+import posthog from "posthog-js";
 import { sendContact, type ContactState } from "@/app/actions/contact";
 import { Reveal } from "@/components/reveal";
 import { Button } from "@/components/ui/button";
@@ -20,6 +21,9 @@ export function Contact() {
   );
 
   useEffect(() => {
+    if (state.status === "sent" || state.status === "fallback") {
+      posthog.capture("contact_message_sent", { delivery: state.status });
+    }
     if (state.status === "fallback" && state.mailto) {
       const anchor = document.createElement("a");
       anchor.href = state.mailto;
@@ -30,7 +34,7 @@ export function Contact() {
   const delivered = state.status === "sent" || state.status === "fallback";
 
   return (
-    <section id="contact" className="scroll-mt-16">
+    <section id="contact" className="scroll-mt-24">
       <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-20">
           <div className="lg:col-span-5">
@@ -45,6 +49,7 @@ export function Contact() {
               </p>
               <a
                 href={`mailto:${profile.email}`}
+                onClick={() => posthog.capture("contact_email_clicked")}
                 className="mt-8 inline-block font-display text-2xl font-medium tracking-tight underline decoration-1 underline-offset-4 transition-colors hover:text-eng md:text-3xl"
               >
                 {profile.email}
@@ -62,6 +67,9 @@ export function Contact() {
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() =>
+                        posthog.capture("social_link_clicked", { label: social.label, url: social.href })
+                      }
                       className="group inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
                     >
                       {social.label}
@@ -81,13 +89,23 @@ export function Contact() {
                     variant="outline"
                     className="h-10 justify-start px-4 sm:justify-center"
                   >
-                    <a href={cv.file} download>
+                    <a
+                    href={cv.file}
+                    download
+                    onClick={() =>
+                      posthog.capture("cv_download_started", {
+                        cv_track: cv.track,
+                        cv_label: cv.label,
+                        source: "contact_section",
+                      })
+                    }
+                  >
                       <Download strokeWidth={1.5} data-icon="inline-start" />
                       {cv.label}
                       <span
                         aria-hidden
                         className={cn(
-                          "ml-1 size-1.5",
+                          "ml-1 size-1.5 rounded-full",
                           cv.track === "engineering" ? "bg-eng" : "bg-teach"
                         )}
                       />
@@ -101,7 +119,7 @@ export function Contact() {
           <div className="lg:col-span-7">
             <Reveal delay={0.1}>
               {delivered ? (
-                <div className="flex min-h-80 flex-col items-start justify-center border bg-secondary/50 p-8 md:p-10">
+                <div className="flex min-h-80 flex-col items-start justify-center rounded-2xl border bg-secondary/50 p-8 md:p-10">
                   <p className="font-display text-3xl font-medium tracking-tight">
                     {state.status === "sent"
                       ? "Message sent."
@@ -119,7 +137,15 @@ export function Contact() {
                   )}
                 </div>
               ) : (
-                <form action={formAction} className="border p-6 md:p-8">
+                <form
+                  action={formAction}
+                  onSubmit={(e) => {
+                    const form = e.currentTarget;
+                    const topic = (form.elements.namedItem("topic") as HTMLInputElement | null)?.value ?? "";
+                    posthog.capture("contact_form_submitted", { topic });
+                  }}
+                  className="rounded-2xl border p-6 md:p-8"
+                >
                   <div className="grid gap-5 sm:grid-cols-2">
                     <div className="grid gap-2">
                       <Label htmlFor="contact-name">Name</Label>
@@ -157,7 +183,7 @@ export function Contact() {
                       ].map((topic) => (
                         <label
                           key={topic.value}
-                          className="cursor-pointer border px-3.5 py-2 text-sm text-muted-foreground transition-colors select-none hover:text-foreground has-checked:border-foreground has-checked:bg-foreground has-checked:text-background has-focus-visible:ring-3 has-focus-visible:ring-ring/50"
+                          className="cursor-pointer rounded-full border px-3.5 py-2 text-sm text-muted-foreground transition-colors select-none hover:text-foreground has-checked:border-foreground has-checked:bg-foreground has-checked:text-background has-focus-visible:ring-3 has-focus-visible:ring-ring/50"
                         >
                           <input
                             type="radio"
