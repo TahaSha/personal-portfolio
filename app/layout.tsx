@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+import { siteUrl } from "@/lib/site";
+
 const geistSans = Geist({
   variable: "--font-sans",
   subsets: ["latin"],
@@ -18,8 +20,6 @@ const display = Cormorant_Garamond({
   weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
 });
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
