@@ -9,7 +9,7 @@ export function Footer() {
             {profile.shortName}
           </p>
           <p className="mt-1 text-sm text-muted-foreground">
-            AI engineer and educator. {profile.location}.
+            {profile.footerTagline} {profile.location}.
           </p>
         </div>
         <div className="flex flex-col gap-1.5 text-sm text-muted-foreground md:items-end">

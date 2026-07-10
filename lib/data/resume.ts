@@ -3,6 +3,7 @@ export type Track = "engineering" | "teaching";
 export const profile = {
   name: "Taha-Yassen Shalaby",
   shortName: "Taha Shalaby",
+  arabicName: "طه شلبي",
   monogram: "TS",
   roles: ["Full-Stack AI Engineer", "Mathematics & Computing Educator"],
   email: "tahashalaby93@gmail.com",
@@ -11,14 +12,18 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/tahashalaby",
   linkedinHandle: "tahashalaby",
   location: "Cairo, Egypt",
+  city: "Cairo",
+  countryCode: "EG",
+  nationality: "United States",
   citizenship: "U.S. Citizen",
   availability: "Open to remote and relocation",
   tagline:
     "I ship production AI systems and teach the next generation how they work.",
+  footerTagline: "AI engineer and Cambridge mathematics teacher.",
   about: [
     "Most engineers can build. Most teachers can explain. I have spent the last decade doing both at once, and each career keeps making the other one better.",
     "On the engineering side, I co-founded an AI startup that shipped 12+ production ML systems for Fortune 500 clients, led validator infrastructure for a blockchain oracle network, and now build agentic LLM applications for cybersecurity: on-prem tool-calling agents that let SOC analysts query security logs in plain English.",
-    "In the classroom, I have delivered the Cambridge International curriculum for over seven years across Cairo's international schools, from Year 1 Computing through Checkpoint Mathematics. The two careers sharpen each other: my clients get systems explained in plain language, and my students get lessons grounded in a live industry.",
+    "In the classroom, I have spent over seven years as a Cambridge Mathematics and Computing teacher across international schools in Cairo, Egypt, from Year 1 Computing through Checkpoint Mathematics. The two careers sharpen each other: my clients get systems explained in plain language, and my students get lessons grounded in a live industry.",
   ],
   cvs: [
     {
@@ -448,4 +453,19 @@ export const education = [
 export const certifications = [
   "IPC Level 1: Implementing the International Primary Curriculum",
   "Cambridge International: 7+ years delivering Checkpoint & IGCSE Mathematics and Computing",
+];
+
+// Topic-level entity signals for the Person JSON-LD, curated separately from
+// the tool-level skillGroups items.
+export const knowsAbout = [
+  "Artificial intelligence",
+  "Machine learning",
+  "Large language models",
+  "LLM agents and tool calling",
+  "Retrieval-augmented generation",
+  "Full-stack web development",
+  "MLOps",
+  "Mathematics education",
+  "Computer science education",
+  "Cambridge International curriculum",
 ];

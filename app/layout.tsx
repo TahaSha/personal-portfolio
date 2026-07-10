@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -23,32 +23,44 @@ const display = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Taha Shalaby | AI Engineer & Educator",
+  alternates: {
+    canonical: "/",
+  },
+  title: "Taha Shalaby | AI Engineer & Mathematics Teacher in Cairo",
   description:
-    "Full-Stack AI Engineer and Cambridge Mathematics & Computing Educator. I ship production AI systems and teach the next generation how they work.",
+    "Taha Shalaby is a full-stack AI engineer and Cambridge Mathematics & Computing teacher in Cairo, Egypt. He ships production AI systems and teaches how they work.",
   keywords: [
+    "Taha Shalaby",
+    "Taha-Yassen Shalaby",
+    "طه شلبي",
+    "Taha Shalaby AI engineer",
+    "Taha Shalaby teacher",
     "AI engineer",
     "machine learning",
     "LLM agents",
-    "Cambridge educator",
+    "Cambridge mathematics teacher",
     "mathematics teacher",
     "computing teacher",
     "full-stack developer",
     "Cairo",
+    "Egypt",
   ],
-  authors: [{ name: "Taha-Yassen Shalaby" }],
+  authors: [{ name: "Taha-Yassen Shalaby", url: siteUrl }],
   openGraph: {
-    title: "Taha Shalaby | AI Engineer & Educator",
+    title: "Taha Shalaby | AI Engineer & Mathematics Teacher in Cairo",
     description:
       "I ship production AI systems and teach the next generation how they work.",
     url: siteUrl,
     siteName: "Taha Shalaby",
-    type: "website",
+    type: "profile",
+    firstName: "Taha-Yassen",
+    lastName: "Shalaby",
+    username: "tahashalaby",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Taha Shalaby | AI Engineer & Educator",
+    title: "Taha Shalaby | AI Engineer & Mathematics Teacher in Cairo",
     description:
       "I ship production AI systems and teach the next generation how they work.",
   },
@@ -56,6 +68,10 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#fbfbf9",
 };
 
 export default function RootLayout({

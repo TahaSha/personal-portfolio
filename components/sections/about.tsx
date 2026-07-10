@@ -9,7 +9,10 @@ export function About({ portraitSrc }: { portraitSrc: string | null }) {
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-7">
             <Reveal>
-              <h2 className="font-display text-4xl font-medium tracking-tight md:text-5xl">
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+                {profile.shortName}
+              </p>
+              <h2 className="mt-4 font-display text-4xl font-medium tracking-tight md:text-5xl">
                 Two careers, one feedback loop.
               </h2>
             </Reveal>
