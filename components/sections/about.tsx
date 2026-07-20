@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Reveal } from "@/components/reveal";
+import { Signature } from "@/components/ui/signature";
 import { profile } from "@/lib/data/resume";
 
 export function About({ portraitSrc }: { portraitSrc: string | null }) {
@@ -37,6 +38,20 @@ export function About({ portraitSrc }: { portraitSrc: string | null }) {
                 {profile.about[2]}
               </p>
             </Reveal>
+            <div
+              role="img"
+              aria-label={`Signed, ${profile.shortName}`}
+              className="mt-4 max-w-xl"
+            >
+              <Signature
+                text={profile.shortName}
+                fontSize={32}
+                delay={0.3}
+                inView
+                once={false}
+                className="h-auto max-w-full"
+              />
+            </div>
           </div>
 
           <div className="lg:col-span-5">
