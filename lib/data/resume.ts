@@ -277,78 +277,126 @@ export const projects: Project[] = [
 
 export interface TimelineEntry {
   track: Track | "education";
-  year: string;
+  // "Sept 2018", a bare year ("2014"), or "Present", as on Role.
+  start: string;
+  end: string;
   title: string;
   org: string;
   note?: string;
-  ongoing?: boolean;
 }
 
 export const timeline: TimelineEntry[] = [
   {
     track: "education",
-    year: "2014",
+    start: "2014",
+    end: "2019",
     title: "B.Sc. Mechatronics Engineering",
     org: "AAST, Cairo",
     note: "Graduation project: autonomous attendance robot using facial recognition. Graduated 2019.",
   },
   {
     track: "teaching",
-    year: "2017",
+    start: "Sept 2017",
+    end: "Sept 2018",
     title: "ICT Educator",
     org: "Futures British School",
     note: "First classroom. Founded a robotics club.",
   },
   {
     track: "teaching",
-    year: "2018",
+    start: "Sept 2018",
+    end: "Sept 2020",
     title: "Mathematics Educator",
     org: "New Capital English School",
     note: "Cambridge Checkpoint and pre-IGCSE. Built automated gradebook tools.",
   },
   {
     track: "engineering",
-    year: "2019",
+    start: "Dec 2019",
+    end: "Dec 2022",
     title: "Co-Founder & CTO",
     org: "laccuna, Toronto",
     note: "12+ production ML systems for Fortune 500 clients.",
   },
   {
     track: "engineering",
-    year: "2023",
+    start: "Feb 2023",
+    end: "Apr 2025",
     title: "Tech Lead",
     org: "Singularity Finance",
     note: "Flare FTSO oracle price feeds, 3-node validator fleet on GCP.",
   },
   {
     track: "teaching",
-    year: "2023",
+    start: "Sept 2023",
+    end: "Jun 2024",
     title: "Mathematics Educator",
     org: "New Capital English School",
     note: "Completed Checkpoint examinations for Years 6 and 8.",
   },
   {
     track: "teaching",
-    year: "2024",
+    start: "Jul 2024",
+    end: "Aug 2025",
     title: "Homeroom Teacher",
     org: "Kompass Education",
     note: "IPC Level 1 certified. English, Maths, Science, Health.",
   },
   {
     track: "engineering",
-    year: "2025",
+    start: "May 2025",
+    end: "Present",
     title: "AI Engineer / Consultant",
     org: "Snappers, AI Cybersecurity",
     note: "Agentic LLM applications for SOC automation.",
-    ongoing: true,
   },
   {
     track: "teaching",
-    year: "2025",
+    start: "Sept 2025",
+    end: "Present",
     title: "Mathematics & Computing Teacher",
     org: "Wycombe Abbey Cairo East",
     note: "Cambridge Maths, Years 7 and 8. Computing, Years 1 to 8.",
-    ongoing: true,
+  },
+];
+
+// Chapters for the Timeline section. Each era lists the timeline entries that
+// overlap its from/to window (same date format as TimelineEntry).
+export interface Era {
+  from: string;
+  to: string;
+  title: string;
+  summary: string;
+}
+
+export const eras: Era[] = [
+  {
+    from: "2014",
+    to: "Sept 2017",
+    title: "Learning",
+    summary:
+      "A mechatronics degree at AAST, ending with an autonomous attendance robot that used facial recognition.",
+  },
+  {
+    from: "Sept 2017",
+    to: "Sept 2020",
+    title: "Both at once",
+    summary:
+      "First classroom and a robotics club, then Cambridge maths. Co-founded laccuna in late 2019 while still teaching.",
+  },
+  {
+    from: "Sept 2020",
+    to: "Sept 2023",
+    title: "All in on AI",
+    summary:
+      "Three years as laccuna's CTO shipping 12+ production ML systems, then tech lead on Flare oracle infrastructure.",
+  },
+  {
+    from: "Sept 2023",
+    to: "Present",
+    title: "Both again",
+    summary:
+      "Back at the whiteboard in 2023. Now agentic AI at Snappers alongside Maths and Computing at Wycombe Abbey.",
   },
 ];
 

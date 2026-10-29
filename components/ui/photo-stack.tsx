@@ -96,6 +96,7 @@ export function PhotoStack({
             zIndex={n - ((i - top + n) % n)}
             reduce={reduce}
             sizes={sizes}
+            eager={i === 0}
             onDragEnd={onDragEnd}
           />
         ))}
@@ -136,6 +137,7 @@ function Card({
   zIndex,
   reduce,
   sizes,
+  eager,
   onDragEnd,
 }: {
   photo: Photo;
@@ -145,6 +147,7 @@ function Card({
   zIndex: number;
   reduce: boolean;
   sizes: string;
+  eager: boolean;
   onDragEnd: (event: unknown, info: PanInfo) => void;
 }) {
   const rotate = useTransform(x, [-400, 0, 400], reduce ? [0, 0, 0] : [-12, 0, 12]);
@@ -181,6 +184,8 @@ function Card({
             alt={photo.alt}
             fill
             sizes={sizes}
+            // The opening photo is the LCP when the page loads at #teaching.
+            loading={eager ? "eager" : "lazy"}
             draggable={false}
             className="pointer-events-none select-none object-cover"
           />

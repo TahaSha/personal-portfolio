@@ -90,7 +90,7 @@ export function Hero({ portraitSrc }: { portraitSrc: string | null }) {
                   alt={`Portrait of ${profile.shortName}`}
                   width={112}
                   height={112}
-                  priority
+                  preload
                   className="size-20 rounded-full object-cover object-top md:size-24"
                 />
               </div>
