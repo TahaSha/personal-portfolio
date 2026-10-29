@@ -200,6 +200,8 @@ export interface Project {
   problem: string;
   approach: string;
   outcome: string;
+  // Headline figure shown in place of the outcome sentence on project cards.
+  metric?: { value: string; label: string };
   stack: string[];
 }
 
@@ -225,6 +227,10 @@ export const projects: Project[] = [
     approach:
       "Fine-tuned a BERT transformer classifier with PyTorch and HuggingFace.",
     outcome: "82% F1-score, analyst headcount cut from 100 to 15.",
+    metric: {
+      value: "82%",
+      label: "F1-score, with analyst headcount cut from 100 to 15.",
+    },
     stack: ["PyTorch", "HuggingFace", "BERT"],
   },
   {
@@ -248,6 +254,7 @@ export const projects: Project[] = [
     approach:
       "A tuned gradient boosting model deployed on GCP and wired into retention workflows.",
     outcome: "15% reduction in customer churn.",
+    metric: { value: "15%", label: "reduction in customer churn." },
     stack: ["XGBoost", "scikit-learn", "GCP"],
   },
   {
@@ -260,84 +267,136 @@ export const projects: Project[] = [
       "An MLOps microservices workflow engine on GKE with auto-scaling, ingress, secrets management, and configurable Dockerfiles.",
     outcome:
       "The production backbone for the full client portfolio, serving 2M+ predictions per month.",
+    metric: {
+      value: "2M+",
+      label: "predictions per month across the full client portfolio.",
+    },
     stack: ["FastAPI", "Celery", "RabbitMQ", "Nginx", "GKE"],
   },
 ];
 
 export interface TimelineEntry {
   track: Track | "education";
-  year: string;
+  // "Sept 2018", a bare year ("2014"), or "Present", as on Role.
+  start: string;
+  end: string;
   title: string;
   org: string;
   note?: string;
-  ongoing?: boolean;
 }
 
 export const timeline: TimelineEntry[] = [
   {
     track: "education",
-    year: "2014",
+    start: "2014",
+    end: "2019",
     title: "B.Sc. Mechatronics Engineering",
     org: "AAST, Cairo",
     note: "Graduation project: autonomous attendance robot using facial recognition. Graduated 2019.",
   },
   {
     track: "teaching",
-    year: "2017",
+    start: "Sept 2017",
+    end: "Sept 2018",
     title: "ICT Educator",
     org: "Futures British School",
     note: "First classroom. Founded a robotics club.",
   },
   {
     track: "teaching",
-    year: "2018",
+    start: "Sept 2018",
+    end: "Sept 2020",
     title: "Mathematics Educator",
     org: "New Capital English School",
     note: "Cambridge Checkpoint and pre-IGCSE. Built automated gradebook tools.",
   },
   {
     track: "engineering",
-    year: "2019",
+    start: "Dec 2019",
+    end: "Dec 2022",
     title: "Co-Founder & CTO",
     org: "laccuna, Toronto",
     note: "12+ production ML systems for Fortune 500 clients.",
   },
   {
     track: "engineering",
-    year: "2023",
+    start: "Feb 2023",
+    end: "Apr 2025",
     title: "Tech Lead",
     org: "Singularity Finance",
     note: "Flare FTSO oracle price feeds, 3-node validator fleet on GCP.",
   },
   {
     track: "teaching",
-    year: "2023",
+    start: "Sept 2023",
+    end: "Jun 2024",
     title: "Mathematics Educator",
     org: "New Capital English School",
     note: "Completed Checkpoint examinations for Years 6 and 8.",
   },
   {
     track: "teaching",
-    year: "2024",
+    start: "Jul 2024",
+    end: "Aug 2025",
     title: "Homeroom Teacher",
     org: "Kompass Education",
     note: "IPC Level 1 certified. English, Maths, Science, Health.",
   },
   {
     track: "engineering",
-    year: "2025",
+    start: "May 2025",
+    end: "Present",
     title: "AI Engineer / Consultant",
     org: "Snappers, AI Cybersecurity",
     note: "Agentic LLM applications for SOC automation.",
-    ongoing: true,
   },
   {
     track: "teaching",
-    year: "2025",
+    start: "Sept 2025",
+    end: "Present",
     title: "Mathematics & Computing Teacher",
     org: "Wycombe Abbey Cairo East",
     note: "Cambridge Maths, Years 7 and 8. Computing, Years 1 to 8.",
-    ongoing: true,
+  },
+];
+
+// Chapters for the Timeline section. Each era lists the timeline entries that
+// overlap its from/to window (same date format as TimelineEntry).
+export interface Era {
+  from: string;
+  to: string;
+  title: string;
+  summary: string;
+}
+
+export const eras: Era[] = [
+  {
+    from: "2014",
+    to: "Sept 2017",
+    title: "Learning",
+    summary:
+      "A mechatronics degree at AAST, ending with an autonomous attendance robot that used facial recognition.",
+  },
+  {
+    from: "Sept 2017",
+    to: "Sept 2020",
+    title: "Both at once",
+    summary:
+      "First classroom and a robotics club, then Cambridge maths. Co-founded laccuna in late 2019 while still teaching.",
+  },
+  {
+    from: "Sept 2020",
+    to: "Sept 2023",
+    title: "All in on AI",
+    summary:
+      "Three years as laccuna's CTO shipping 12+ production ML systems, then tech lead on Flare oracle infrastructure.",
+  },
+  {
+    from: "Sept 2023",
+    to: "Present",
+    title: "Both again",
+    summary:
+      "Back at the whiteboard in 2023. Now agentic AI at Snappers alongside Maths and Computing at Wycombe Abbey.",
   },
 ];
 
@@ -453,6 +512,32 @@ export const education = [
 export const certifications = [
   "IPC Level 1: Implementing the International Primary Curriculum",
   "Cambridge International: 7+ years delivering Checkpoint & IGCSE Mathematics and Computing",
+];
+
+// shortcut: Unsplash stock photos (free licence, unsplash.com/photos/<slug>),
+// swap for real classroom photos in public/images (descriptive filenames +
+// name-bearing alt text).
+export const teachingPhotos = [
+  {
+    // hand-writing-mathematical-formulas-on-a-blackboard-with-chalk-0uKaXrG9zaQ
+    src: "https://images.unsplash.com/photo-1758685848697-b5fb55f87407",
+    alt: "A hand writing calculus formulas in chalk on a blackboard",
+  },
+  {
+    // two-white-and-black-electronic-device-with-wheels-6NUlOHM40w8
+    src: "https://images.unsplash.com/photo-1518314916381-77a37c2a49ae",
+    alt: "Two LEGO Mindstorms robots on a white table",
+  },
+  {
+    // a-wooden-protractor-rests-on-a-chalkboard-I0mbixSWUh8
+    src: "https://images.unsplash.com/photo-1777639629775-d4de6fe6a666",
+    alt: "A wooden protractor resting on a chalkboard ledge",
+  },
+  {
+    // a-classroom-filled-with-lots-of-desks-and-chairs-Qw6wa96IvvQ
+    src: "https://images.unsplash.com/photo-1740635341299-3b8e3490f546",
+    alt: "A primary school classroom with desks, supplies and a green chalkboard",
+  },
 ];
 
 // Topic-level entity signals for the Person JSON-LD, curated separately from
