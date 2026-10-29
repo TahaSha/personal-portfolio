@@ -455,10 +455,10 @@ export const skillGroups: SkillGroup[] = [
     track: "engineering",
     label: "AI Tooling",
     items: [
-      "Claude Code",
-      "Cursor",
+      "Context engineering",
       "MCP (Model Context Protocol)",
-      "AI-assisted development",
+      "Agent harnesses: skills, hooks, subagents",
+      "Multi-agent orchestration",
     ],
   },
   {
