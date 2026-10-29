@@ -6,6 +6,7 @@ import posthog from "posthog-js";
 import { sendContact, type ContactState } from "@/app/actions/contact";
 import { Reveal } from "@/components/reveal";
 import { Button } from "@/components/ui/button";
+import { CopyButton } from "@/components/ui/copy-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -47,13 +48,20 @@ export function Contact() {
                 computing department, or something in between: I would like to
                 hear about it.
               </p>
-              <a
-                href={`mailto:${profile.email}`}
-                onClick={() => posthog.capture("contact_email_clicked")}
-                className="mt-8 inline-block font-display text-2xl font-medium tracking-tight underline decoration-1 underline-offset-4 transition-colors hover:text-eng md:text-3xl"
-              >
-                {profile.email}
-              </a>
+              <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-3">
+                <a
+                  href={`mailto:${profile.email}`}
+                  onClick={() => posthog.capture("contact_email_clicked")}
+                  className="font-display text-2xl font-medium tracking-tight underline decoration-1 underline-offset-4 transition-colors hover:text-eng md:text-3xl"
+                >
+                  {profile.email}
+                </a>
+                <CopyButton
+                  value={profile.email}
+                  label="Copy email"
+                  onCopy={() => posthog.capture("contact_email_copied")}
+                />
+              </div>
               <ul className="mt-8 space-y-3">
                 {[
                   { label: `GitHub / ${profile.githubHandle}`, href: profile.github },

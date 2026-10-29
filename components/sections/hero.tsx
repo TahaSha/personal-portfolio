@@ -117,12 +117,13 @@ export function Hero({ portraitSrc }: { portraitSrc: string | null }) {
                   className={
                     reduce
                       ? "hidden"
-                      : "absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75"
+                      : // One pulse once the panel has faded in, then still.
+                        "absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75 [animation-delay:1s] [animation-fill-mode:both] [animation-iteration-count:1]"
                   }
                 />
-                <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
+                <span className="relative inline-flex size-2 rounded-full bg-white" />
               </span>
-              <p className="text-xs text-emerald-400">
+              <p className="text-xs text-white/70">
                 Open to engineering and teaching roles
               </p>
             </div>

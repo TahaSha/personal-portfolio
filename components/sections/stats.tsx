@@ -1,3 +1,4 @@
+import { CountUp } from "@/components/count-up";
 import { Reveal } from "@/components/reveal";
 import { stats } from "@/lib/data/resume";
 
@@ -8,7 +9,7 @@ export function Stats() {
         {stats.map((stat, i) => (
           <Reveal key={stat.label} delay={i * 0.07}>
             <p className="font-display text-5xl font-medium tracking-tight md:text-6xl">
-              {stat.value}
+              <CountUp value={stat.value} />
             </p>
             <p className="mt-2 max-w-44 text-sm leading-snug text-muted-foreground">
               {stat.label}
